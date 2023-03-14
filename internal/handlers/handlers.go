@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	database "github.com/OluwatobiTobias/golang_snippets/internal/database"
 	er "github.com/OluwatobiTobias/golang_snippets/internal/error"
 	middleware "github.com/OluwatobiTobias/golang_snippets/internal/middleware"
+	res "github.com/OluwatobiTobias/golang_snippets/internal/resp_req"
+	types "github.com/OluwatobiTobias/golang_snippets/internal/types"
 	"github.com/go-chi/render"
 )
 
@@ -20,9 +21,9 @@ func GetArticle(w http.ResponseWriter, r *http.Request) {
 	// middleware. The worst case, the recoverer middleware will save us.
 	a := r.Context().Value(middleware.ConKey)
 	fmt.Println("article----", a)
-	article := r.Context().Value(middleware.ConKey).(*database.Article)
+	article := r.Context().Value(middleware.ConKey).(*types.Article)
 
-	if err := render.Render(w, r, database.NewArticleResponse(article)); err != nil {
+	if err := render.Render(w, r, res.NewArticleResponse(article)); err != nil {
 		render.Render(w, r, er.ErrRender(err))
 		return
 	}

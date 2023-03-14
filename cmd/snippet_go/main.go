@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	handler "github.com/OluwatobiTobias/golang_snippets/internal/handlers"
@@ -29,6 +30,6 @@ func main() {
 		r.Use(custom_middle.ArticleCtx)
 		r.Get("/", handler.GetArticle)
 	})
+	log.Fatal(http.ListenAndServe(":3333", r))
 
-	http.ListenAndServe(":3333", r)
 }

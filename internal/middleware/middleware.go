@@ -7,6 +7,7 @@ import (
 
 	database "github.com/OluwatobiTobias/golang_snippets/internal/database"
 	er "github.com/OluwatobiTobias/golang_snippets/internal/error"
+	types "github.com/OluwatobiTobias/golang_snippets/internal/types"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
@@ -17,7 +18,7 @@ import (
 // the Article could not be found, we stop here and return a 404.
 func ArticleCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var article *database.Article
+		var article *types.Article
 		var err error
 
 		fmt.Println("got to middle func")
@@ -43,6 +44,6 @@ func ArticleCtx(next http.Handler) http.Handler {
 	})
 }
 
-type contextKey string
+type contextKey int
 
-const ConKey contextKey = "article"
+const ConKey contextKey = iota + 1
